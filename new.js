@@ -173,14 +173,14 @@ function toggleFlow() {
 
 function togglePercentile() {
       heatMapData.length = 0
-      for (let i = 0; i < heatMapData_stage.length; i++) {
-        if (isNaN(heatMapData_stage[i])) {
-           console.log("IF STATEMENT: latitude hmap obj type is: " + typeof(heatMapData_stage[i]));
+      for (let i = 0; i < heatMapData_percentile.length; i++) {
+        if (isNaN(heatMapData_percentile[i])) {
+           console.log("IF STATEMENT: latitude hmap obj type is: " + typeof(heatMapData_percentile[i]));
           continue;
         }
         else {
          // console.log("latitude hmap obj type is: " + typeof(heatMapData_flow[i]));
-         var loc = { location: new google.maps.LatLng(heatMapData_lat[i], heatMapData_long[i]), weight: heatMapData_stage[i] };
+         var loc = { location: new google.maps.LatLng(heatMapData_lat[i], heatMapData_long[i]), weight: heatMapData_percentile[i] };
          heatMapData.push(loc);
         }
       }
