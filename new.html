@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div id="floating-panel">
+      <button id="toggle-heatmap" class="toggle-button">Toggle Heatmap</button>
+      <button id="toggle-stage" class="toggle-stage">Toggle Stage</button>
+      <button id="toggle-flow" class="toggle-flow">Toggle Flow</button>
+      <button id="toggle-percentile" class="toggle-percentile">Toggle Percentile</button>
+      <button id="change-gradient" class="toggle-button">
+        Change gradient
+      </button>
+      <button id="change-radius" class="toggle-button">Change radius</button>
+      <button id="change-opacity" class="toggle-button">Change opacity</button>
+    </div>
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <!-- <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEPre_kYMUnu6BAi4wbjNRoFcRgdh8RNs&callback=initMap&v=weekly"
+      async
+    ></script> -->
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEPre_kYMUnu6BAi4wbjNRoFcRgdh8RNs&libraries=visualization&callback=initMap"
+    ></script>
+  </body>
+  <script src="new.js"></script>
+</html>
