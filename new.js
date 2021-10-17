@@ -1,5 +1,6 @@
 let map, heatmap;
     var heatMapData = [];
+    var popups = [];
     var heatMapData_lat = [];
     var heatMapData_long = [];
     var heatMapData_flow = [];
@@ -93,10 +94,14 @@ function initMap() {
     mapTypeId: "terrain",
   });
 
+
+
   heatmap = new google.maps.visualization.HeatmapLayer({
     data: heatMapData,
   });
   heatmap.setMap(map);
+
+
   document
     .getElementById("toggle-heatmap")
     .addEventListener("click", toggleHeatmap);
@@ -150,16 +155,19 @@ function toggleStage() {
 
 
 function toggleFlow() {
+      var infoWindow = new google.maps.InfoWindow();
       heatMapData.length = 0
       for (let i = 0; i < heatMapData_flow.length; i++) {
-        if (isNaN(heatMapData_flow[i])) {
+        if (isNaN(heatMapData_stage[i])) {
            console.log("IF STATEMENT: latitude hmap obj type is: " + typeof(heatMapData_flow[i]));
           continue;
         }
         else {
          // console.log("latitude hmap obj type is: " + typeof(heatMapData_flow[i]));
          var loc = { location: new google.maps.LatLng(heatMapData_lat[i], heatMapData_long[i]), weight: heatMapData_flow[i] };
+         var popup = [{lat: heatMapData_lat[i], lng: heatMapData_long[i]},  heatMapData_flow[i]];
          heatMapData.push(loc);
+         popups.push(popup);
         }
       }
       var centered_loc = new google.maps.LatLng(41.6834, -84.67);
@@ -169,6 +177,34 @@ function toggleFlow() {
         mapTypeId: "terrain",
       });
       heatmap.setMap(map);
+      popups.sort(function(a, b){
+        let flowA = a[1];
+        let flowB = b[1];
+        if (flowA < flowB) 
+        {
+          return -1;
+        }    
+        else if (flowA > flowB)
+        {
+          return 1;
+        }   
+        return 0;
+      });
+      popups.slice(-20).forEach(([position, title], i) => {
+          const marker = new google.maps.Marker({
+            position,
+            map,
+            title: `${'Flow = '}${heatMapData_flow[i]}`,
+            label: `${i+1}`,
+            optimized: false,
+          });
+          marker.setOptions({'opacity':0.5});
+          marker.addListener("click", () => {
+            infoWindow.close();
+            infoWindow.setContent(marker.getTitle());
+            infoWindow.open(marker.getMap(), marker);
+          });
+      });
 }
 
 function togglePercentile() {
